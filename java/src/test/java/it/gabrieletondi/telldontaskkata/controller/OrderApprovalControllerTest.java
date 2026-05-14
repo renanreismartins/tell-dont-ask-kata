@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
@@ -9,9 +9,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
-public class OrderApprovalUseCaseTest {
+public class OrderApprovalControllerTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
-    private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository);
+    private final OrderApprovalController controller = new OrderApprovalController(orderRepository);
 
     @Test
     public void approvedExistingOrder() throws Exception {
@@ -24,7 +24,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        useCase.run(request);
+        controller.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
@@ -41,7 +41,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
 
-        useCase.run(request);
+        controller.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.REJECTED);
@@ -58,7 +58,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(RejectedOrderCannotBeApprovedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(RejectedOrderCannotBeApprovedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -73,7 +73,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
         
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -88,7 +88,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -103,7 +103,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 }

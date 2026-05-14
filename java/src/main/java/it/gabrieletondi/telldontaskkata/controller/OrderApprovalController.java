@@ -1,13 +1,13 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 
-public class OrderApprovalUseCase {
+public class OrderApprovalController {
     private final OrderRepository orderRepository;
 
-    public OrderApprovalUseCase(OrderRepository orderRepository) {
+    public OrderApprovalController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

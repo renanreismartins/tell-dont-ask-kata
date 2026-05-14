@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
-public class OrderShipmentUseCaseTest {
+public class OrderShipmentControllerTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
     private final TestShipmentService shipmentService = new TestShipmentService();
-    private final OrderShipmentUseCase useCase = new OrderShipmentUseCase(orderRepository, shipmentService);
+    private final OrderShipmentController controller = new OrderShipmentController(orderRepository, shipmentService);
 
     @Test
     public void shipApprovedOrder() throws Exception {
@@ -25,7 +25,7 @@ public class OrderShipmentUseCaseTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        useCase.run(request);
+        controller.run(request);
 
         assertThat(orderRepository.getSavedOrder().getStatus()).isEqualTo(OrderStatus.SHIPPED);
         assertThat(shipmentService.getShippedOrder()).isEqualTo(initialOrder);
@@ -41,7 +41,7 @@ public class OrderShipmentUseCaseTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
 
         assertThat(orderRepository.getSavedOrder()).isNull();
         assertThat(shipmentService.getShippedOrder()).isNull();
@@ -57,7 +57,7 @@ public class OrderShipmentUseCaseTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
         assertThat(shipmentService.getShippedOrder()).isNull();
     }
@@ -72,7 +72,7 @@ public class OrderShipmentUseCaseTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedTwiceException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(OrderCannotBeShippedTwiceException.class);
 
         assertThat(orderRepository.getSavedOrder()).isNull();
         assertThat(shipmentService.getShippedOrder()).isNull();

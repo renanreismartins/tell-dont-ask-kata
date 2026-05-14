@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Category;
 import it.gabrieletondi.telldontaskkata.domain.Order;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class OrderCreationUseCaseTest {
+public class OrderCreationControllerTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
     private Category food = new Category() {{
         setName("food");
@@ -37,7 +37,7 @@ public class OrderCreationUseCaseTest {
                     }}
             )
     );
-    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
+    private final OrderCreationController controller = new OrderCreationController(orderRepository, productCatalog);
 
     @Test
     public void sellMultipleItems() throws Exception {
@@ -54,7 +54,7 @@ public class OrderCreationUseCaseTest {
         request.getRequests().add(saladRequest);
         request.getRequests().add(tomatoRequest);
 
-        useCase.run(request);
+        controller.run(request);
 
         final Order insertedOrder = orderRepository.getSavedOrder();
         assertThat(insertedOrder.getStatus()).isEqualTo(OrderStatus.CREATED);
@@ -82,6 +82,6 @@ public class OrderCreationUseCaseTest {
         unknownProductRequest.setProductName("unknown product");
         request.getRequests().add(unknownProductRequest);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(UnknownProductException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(UnknownProductException.class);
     }
 }

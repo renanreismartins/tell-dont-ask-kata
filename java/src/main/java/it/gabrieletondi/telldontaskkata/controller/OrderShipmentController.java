@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
@@ -9,11 +9,11 @@ import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.CREATED;
 import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.REJECTED;
 import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.SHIPPED;
 
-public class OrderShipmentUseCase {
+public class OrderShipmentController {
     private final OrderRepository orderRepository;
     private final ShipmentService shipmentService;
 
-    public OrderShipmentUseCase(OrderRepository orderRepository, ShipmentService shipmentService) {
+    public OrderShipmentController(OrderRepository orderRepository, ShipmentService shipmentService) {
         this.orderRepository = orderRepository;
         this.shipmentService = shipmentService;
     }

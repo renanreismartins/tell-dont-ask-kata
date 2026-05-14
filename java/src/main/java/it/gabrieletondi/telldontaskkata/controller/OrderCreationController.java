@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.useCase;
+package it.gabrieletondi.telldontaskkata.controller;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderItem;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_UP;
 
-public class OrderCreationUseCase {
+public class OrderCreationController {
     private final OrderRepository orderRepository;
     private final ProductCatalog productCatalog;
 
-    public OrderCreationUseCase(OrderRepository orderRepository, ProductCatalog productCatalog) {
+    public OrderCreationController(OrderRepository orderRepository, ProductCatalog productCatalog) {
         this.orderRepository = orderRepository;
         this.productCatalog = productCatalog;
     }
