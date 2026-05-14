@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.controller;
+package it.gabrieletondi.telldontaskkata.controller.request;
 
 public class SellItemRequest {
     private int quantity;

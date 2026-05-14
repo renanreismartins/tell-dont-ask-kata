@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.controller;
+package it.gabrieletondi.telldontaskkata.controller.exception;
 
 public class ApprovedOrderCannotBeRejectedException extends RuntimeException {
 }

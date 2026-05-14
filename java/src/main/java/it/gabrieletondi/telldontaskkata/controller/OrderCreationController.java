@@ -1,5 +1,8 @@
 package it.gabrieletondi.telldontaskkata.controller;
 
+import it.gabrieletondi.telldontaskkata.controller.exception.UnknownProductException;
+import it.gabrieletondi.telldontaskkata.controller.request.SellItemRequest;
+import it.gabrieletondi.telldontaskkata.controller.request.SellItemsRequest;
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderItem;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;

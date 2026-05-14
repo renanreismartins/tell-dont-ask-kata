@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata.controller;
+package it.gabrieletondi.telldontaskkata.controller.request;
 
 import java.util.List;
 
